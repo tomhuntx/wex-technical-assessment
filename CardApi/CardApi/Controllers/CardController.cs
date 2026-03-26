@@ -1,17 +1,17 @@
+using CardApi.Data;
+using CardApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CardApi.Controllers
-{
-    [ApiController]
-    [Route("[controller]")]
-    public class CardsController : ControllerBase
-    {
-        [HttpPost]
-        public IActionResult CreateCard([FromBody] decimal creditLimit)
-        {
-            // TODO: Implement card creation logic
+namespace CardApi.Controllers;
 
-            return Ok();
-        }
+[ApiController]
+[Route("[controller]")]
+public class CardController(CardService cardService) : ControllerBase
+{
+    [HttpPost]
+    public async Task<IActionResult> CreateCard([FromBody] decimal creditLimit)
+    {
+        var card = await cardService.CreateCard(creditLimit);
+        return Ok(card);
     }
 }
