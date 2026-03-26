@@ -6,7 +6,7 @@ namespace CardApi.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class CardController(CardService cardService) : ControllerBase
+public class CardController(CardService cardService, ExchangeRateService exchangeRateService) : ControllerBase
 {
     [HttpGet]
     public async Task<IActionResult> GetAllCards()
@@ -23,7 +23,7 @@ public class CardController(CardService cardService) : ControllerBase
     }
 
     [HttpGet("{cardId}/balance")]
-    public async Task<IActionResult> GetAvailableBalance(Guid cardId)
+    public async Task<IActionResult> GetAvailableBalance(Guid cardId, [FromQuery] string? targetCurrency = null)
     {
         var card = await cardService.GetCard(cardId);
 
@@ -31,6 +31,18 @@ public class CardController(CardService cardService) : ControllerBase
             return NotFound(new { error = $"Card of ID \"{cardId}\" not found." });
 
         var result = await cardService.GetCardBalance(card);
+
+        if (!string.IsNullOrWhiteSpace(targetCurrency))
+        {
+            var rate = await exchangeRateService.GetExchangeRate(targetCurrency);
+            if (rate == null)
+                throw new InvalidOperationException($"No exchange rate available for {targetCurrency}.");
+
+            result.Currency = targetCurrency;
+            result.ExchangeRate = rate.Value;
+            result.AvailableBalanceConverted = Math.Round(result.AvailableBalance * rate.Value, 2);
+        }
+
         return Ok(result);
     }
 }

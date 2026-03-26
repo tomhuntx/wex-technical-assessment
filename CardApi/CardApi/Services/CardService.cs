@@ -46,7 +46,7 @@ public class CardService(CardDbContext context)
     /// <param name="card">Card object</param>
     /// <returns>Card balance details</returns>
     /// <exception cref="KeyNotFoundException"></exception>
-    public async Task<CardBalanceResponse> GetCardBalance(Card card)
+    public async Task<CardBalanceResponse> GetCardBalance(Card card, string? targetCurrency = null)
     {
         // Sum all transactions for this card
         var totalTransactions = await context.Transactions
@@ -56,12 +56,14 @@ public class CardService(CardDbContext context)
         // Calculate balance
         var availableBalance = card.CreditLimit - totalTransactions;
 
-        return new CardBalanceResponse
+        var response = new CardBalanceResponse
         {
             CardId = card.Id,
             CreditLimit = card.CreditLimit,
             TotalOfTransactions = totalTransactions,
             AvailableBalance = availableBalance
         };
+
+        return response;
     }
 }
