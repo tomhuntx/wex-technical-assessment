@@ -1,19 +1,18 @@
+using CardApi.Models;
+using CardApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
-namespace CardApi.Controllers
+namespace CardApi.Controllers;
+
+[ApiController]
+[Route("[controller]")]
+public class TransactionController(TransactionService transactionService) : ControllerBase
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class TransactionController : ControllerBase
+    [HttpPost("{cardId}/transaction")]
+    public async Task<IActionResult> CreateTransaction(Guid cardId, [FromBody] CardTransactionRequest request)
     {
-        [HttpPost]
-        public IActionResult StoreTransaction([FromBody] object transaction)
-        {
-            // TODO: Define Transaction and replace above paramete
-            // Create new Transaction object
-            // Store transaction via PostgreSQL
-
-            return Ok();
-        }
+        var result = await transactionService.CreateTransaction(cardId, request);
+        return Ok(result);
     }
 }

@@ -9,6 +9,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<CardService>();
+builder.Services.AddScoped<TransactionService>();
 builder.Services.AddDbContext<CardDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
