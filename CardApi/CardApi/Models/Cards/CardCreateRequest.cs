@@ -1,4 +1,4 @@
-﻿namespace CardApi.Models;
+﻿namespace CardApi.Models.Cards;
 
 public class CardCreateRequest
 {

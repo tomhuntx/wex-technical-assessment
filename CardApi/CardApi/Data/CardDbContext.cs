@@ -1,4 +1,5 @@
-﻿using CardApi.Models;
+﻿using CardApi.Models.Cards;
+using CardApi.Models.CardTransactions;
 using Microsoft.EntityFrameworkCore;
 
 namespace CardApi.Data;

@@ -1,4 +1,4 @@
-using CardApi.Models;
+using CardApi.Models.Cards;
 using CardApi.Services;
 using Microsoft.AspNetCore.Mvc;
 

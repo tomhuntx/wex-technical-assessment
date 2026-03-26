@@ -1,5 +1,5 @@
 ﻿using CardApi.Data;
-using CardApi.Models;
+using CardApi.Models.Cards;
 
 namespace CardApi.Services;
 
@@ -10,6 +10,7 @@ public class CardService(CardDbContext context)
     /// </summary>
     /// <param name="request">Request body</param>
     /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public async Task<Card> CreateCard(CardCreateRequest request)
     {
         if (request.CreditLimit <= 0)
