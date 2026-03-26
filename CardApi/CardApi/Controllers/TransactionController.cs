@@ -1,7 +1,6 @@
 using CardApi.Models;
 using CardApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CardApi.Controllers;
 

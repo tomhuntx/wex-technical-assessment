@@ -1,11 +1,17 @@
 ﻿using CardApi.Data;
 using CardApi.Models;
-using Microsoft.EntityFrameworkCore;
 
 namespace CardApi.Services;
 
 public class TransactionService(CardDbContext context)
 {
+    /// <summary>
+    /// Create a new transaction for a given card Id
+    /// </summary>
+    /// <param name="cardId">GUID of card used in transaction</param>
+    /// <param name="request">Details of transaction in request body</param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException"></exception>
     public async Task<CardTransaction> CreateTransaction(Guid cardId, CardTransactionRequest request)
     {
         if (request.Amount <= 0)

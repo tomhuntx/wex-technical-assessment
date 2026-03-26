@@ -1,4 +1,4 @@
-using CardApi.Data;
+using CardApi.Models;
 using CardApi.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,9 +9,9 @@ namespace CardApi.Controllers;
 public class CardController(CardService cardService) : ControllerBase
 {
     [HttpPost]
-    public async Task<IActionResult> CreateCard([FromBody] decimal creditLimit)
+    public async Task<IActionResult> CreateCard([FromBody] CardCreateRequest request)
     {
-        var card = await cardService.CreateCard(creditLimit);
+        var card = await cardService.CreateCard(request);
         return Ok(card);
     }
 }
