@@ -27,6 +27,6 @@ public class ExchangeRateService(HttpClient httpClient, IOptions<ExternalApis> a
         if (content?.Data == null || content.Data.Count == 0)
             return null;
 
-        return decimal.Parse(content.Data[0].exchange_rate);
+        return decimal.Parse(content.Data[0].Exchange_rate);
     }
 }

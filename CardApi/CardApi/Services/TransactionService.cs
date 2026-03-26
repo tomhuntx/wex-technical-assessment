@@ -6,6 +6,8 @@ namespace CardApi.Services;
 
 public class TransactionService(CardDbContext context)
 {
+    // Get ALL transactions in database
+    // Created for testing purposes and ease of use
     public async Task<List<CardTransaction>> GetAllTransactions()
     {
         return await context.Transactions.ToListAsync();
@@ -50,7 +52,7 @@ public class TransactionService(CardDbContext context)
     }
 
     /// <summary>
-    /// Convert a transaction by its given exchange rate
+    /// Convert a transaction by its given exchange rate.
     /// </summary>
     /// <param name="transaction">Transaction object</param>
     /// <param name="exchangeRate">Exchange rate</param>
