@@ -35,8 +35,9 @@ public class CardController(CardService cardService, ExchangeRateService exchang
         if (!string.IsNullOrWhiteSpace(targetCurrency))
         {
             var rate = await exchangeRateService.GetExchangeRate(targetCurrency);
+
             if (rate == null)
-                throw new InvalidOperationException($"No exchange rate available for {targetCurrency}.");
+                return BadRequest(new { error = $"No exchange rate available for {targetCurrency}." });
 
             result.Currency = targetCurrency;
             result.ExchangeRate = rate.Value;

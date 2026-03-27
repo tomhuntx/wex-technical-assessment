@@ -33,12 +33,7 @@ public class TransactionController(TransactionService transactionService, Exchan
         var exchangeRate = await exchangeRateService.GetExchangeRate(currency, transaction.TransactionDate);
 
         if (exchangeRate == null)
-        {
-            return BadRequest(new
-            {
-                error = "No exchange rate available within 6 months of transaction date."
-            });
-        }
+            return BadRequest(new { error = "No exchange rate available within 6 months of transaction date." });
 
         var result = await transactionService.ConvertTransactionByExchangeRate(transaction, (decimal)exchangeRate, currency);
         

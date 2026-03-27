@@ -14,9 +14,9 @@ builder.Services.AddScoped<TransactionService>();
 builder.Services.AddScoped<ExchangeRateService>();
 builder.Services.AddHttpClient<ExchangeRateService>();
 
-// Define SQLite database
+// Define PostgreSQL database
 builder.Services.AddDbContext<CardDbContext>(options =>
-    options.UseSqlite("Data Source=cards.db"));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Default")));
 
 // Extract config values
 builder.Services.Configure<ExternalApis>(
@@ -24,11 +24,11 @@ builder.Services.Configure<ExternalApis>(
 
 var app = builder.Build();
 
-// Create SQLite database and tables on app start
+// Create PostgreSQL database and tables on app start
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<CardDbContext>();
-    db.Database.EnsureCreated();
+    db.Database.Migrate();
 }
 
 if (app.Environment.IsDevelopment())

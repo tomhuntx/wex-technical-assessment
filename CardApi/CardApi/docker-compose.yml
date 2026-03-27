@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: card-api-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: 5UZ7WVJv4bg0jXN1ByaZ
+      POSTGRES_DB: cards_db
+    ports:
+      - "5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

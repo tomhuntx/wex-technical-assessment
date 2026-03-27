@@ -1,5 +1,4 @@
-﻿using CardApi.Data;
-using CardApi.Models.Config;
+﻿using CardApi.Models.Config;
 using CardApi.Models.ExchangeRate;
 using Microsoft.Extensions.Options;
 

@@ -47,8 +47,7 @@ public class TransactionService(CardDbContext context)
     /// <returns>Transaction or null if not found</returns>
     public async Task<CardTransaction?> GetTransaction(Guid transactionId)
     {
-        return await context.Transactions
-                             .FirstOrDefaultAsync(t => t.Id == transactionId);
+        return await context.Transactions.FirstOrDefaultAsync(t => t.Id == transactionId);
     }
 
     /// <summary>
